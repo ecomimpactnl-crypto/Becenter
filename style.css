@@ -83,7 +83,6 @@
 }
 
 /* ─── FAQ button variant ─── */
-.faq__question[role="button"],
 button.faq__question {
   width: 100%;
   text-align: left;
@@ -113,20 +112,6 @@ button.faq__question::after {
 }
 .faq__item.open button.faq__question {
   color: var(--color-accent);
-}
-.faq__answer {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.4s var(--ease-out), padding 0.4s var(--ease-out);
-}
-.faq__item.open .faq__answer {
-  max-height: 400px;
-  padding-bottom: var(--space-5);
-}
-.faq__answer p {
-  color: var(--color-text-muted);
-  font-size: var(--text-base);
-  line-height: 1.7;
 }
 
 
@@ -275,6 +260,27 @@ a:hover {
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--color-text);
+}
+
+.nav__logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  color: #C41E1E;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.nav__logo-text--accent {
+  color: #C41E1E;
 }
 
 /* Logo branding: Be in red, Center in white/light */
@@ -468,7 +474,7 @@ a:hover {
 .hero__subtitle {
   font-family: var(--font-body);
   font-size: var(--text-base);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--color-text-muted);
   margin-bottom: var(--space-10);
   line-height: 1.7;
@@ -551,9 +557,11 @@ a:hover {
 
 .hero__trust {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-3);
   margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
 }
 
 .hero__trust-item {
@@ -834,6 +842,11 @@ a:hover {
   opacity: 1;
 }
 
+/* Align non-featured card title with featured (badge height + margin) */
+.service-card:not(.service-card--featured) .service-card__title {
+  margin-top: calc(1.6em + var(--space-4));
+}
+
 .service-card__label {
   font-family: var(--font-body);
   font-size: var(--text-xs);
@@ -912,6 +925,12 @@ a:hover {
   max-width: 100%;
 }
 
+.services__grid--four .service-card__title {
+  font-size: var(--text-lg);
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
 .service-card__desc {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
@@ -973,8 +992,29 @@ a:hover {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.3s var(--ease-out), background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.pand__facility:hover {
+  border-color: var(--color-accent-muted);
+  background: var(--color-surface-3);
+  transform: translateY(-2px);
+}
+
+.pand__facility::before {
+  content: '';
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.15);
 }
 
 .pand__facility svg {
@@ -1061,18 +1101,40 @@ a:hover {
 }
 
 .location__highlights {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-3);
   margin-top: var(--space-6);
+  list-style: none;
 }
 
 .location__highlight {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.3s var(--ease-out), background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.location__highlight:hover {
+  border-color: var(--color-accent-muted);
+  background: var(--color-surface-3);
+  transform: translateY(-2px);
+}
+
+.location__highlight::before {
+  content: '';
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.15);
 }
 
 .location__highlight svg {
@@ -1511,9 +1573,19 @@ a:hover {
 }
 
 .faq__answer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s var(--ease-out);
+  margin: 0;
+}
+
+.faq__item.open .faq__answer {
+  max-height: 500px;
+  padding-bottom: var(--space-5);
+}
+
+.faq__answer p {
   color: var(--color-text-muted);
   font-size: var(--text-base);
   line-height: 1.7;
-  padding-bottom: var(--space-5);
-  margin: 0;
 }
