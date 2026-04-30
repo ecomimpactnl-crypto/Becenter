@@ -96,23 +96,52 @@
   }
 
 
-  /* ─── Contact Form (Front-End Only) ─── */
+  /* ─── Contact Form via Web3Forms ─── */
   const form = document.getElementById('contact-form');
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const btn = form.querySelector('.form__submit');
-      const originalText = btn.textContent;
+      const originalHTML = btn.innerHTML;
 
-      btn.textContent = 'Verstuurd!';
-      btn.style.background = '#4a7c4a';
+      btn.innerHTML = 'Versturen...';
+      btn.disabled = true;
 
-      setTimeout(function () {
-        btn.textContent = originalText;
-        btn.style.background = '';
-        form.reset();
-      }, 2500);
+      const data = new FormData(form);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (json) {
+          if (json.success) {
+            btn.innerHTML = '&#10003; Verstuurd!';
+            btn.style.background = '#2d7a3a';
+            btn.style.borderColor = '#2d7a3a';
+            form.reset();
+            setTimeout(function () {
+              btn.innerHTML = originalHTML;
+              btn.style.background = '';
+              btn.style.borderColor = '';
+              btn.disabled = false;
+            }, 4000);
+          } else {
+            throw new Error('Mislukt');
+          }
+        })
+        .catch(function () {
+          btn.innerHTML = 'Er ging iets mis — probeer opnieuw';
+          btn.style.background = '#8b2020';
+          btn.style.borderColor = '#8b2020';
+          btn.disabled = false;
+          setTimeout(function () {
+            btn.innerHTML = originalHTML;
+            btn.style.background = '';
+            btn.style.borderColor = '';
+          }, 4000);
+        });
     });
   }
 
