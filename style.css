@@ -1506,21 +1506,11 @@ a:hover {
   margin-bottom: var(--space-1);
 }
 
-.stat__value--price {
-  font-size: var(--text-xl);
-  color: var(--color-accent);
-}
-
 .stat__label {
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-}
-
-.stat__label--sub {
-  font-size: 0.65rem;
-  color: var(--color-text-faint);
 }
 
 @media (max-width: 768px) {
